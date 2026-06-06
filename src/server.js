@@ -3,6 +3,7 @@
 const { createApp } = require('./app');
 const { waitForDb } = require('./db');
 const store = require('./data/store');
+const { initSensitiveFilter } = require('./utils/sensitive-word');
 
 const PORT = process.env.PORT || 4790;
 
@@ -18,6 +19,11 @@ async function main() {
       console.log('已写入种子数据');
     }
   }
+
+  // 初始化敏感词过滤器
+  await initSensitiveFilter();
+  // eslint-disable-next-line no-console
+  console.log('敏感词过滤器已初始化');
 
   const app = createApp();
   app.listen(PORT, () => {
